@@ -28,7 +28,7 @@ for (const block of resolvedBlocks) {
   index += `        "${blockName}": {
             name: '${blockName}',
             component: React.lazy(() => import('@/registry/blocks/${block}')),
-            files: ['registry/blocks/${block}.tsx'],
+            files: ['registry/blocks/${block}'],
             code: \`${code}\`,
         },
 `;
