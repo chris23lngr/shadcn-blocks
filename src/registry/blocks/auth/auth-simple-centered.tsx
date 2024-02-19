@@ -10,6 +10,8 @@ import {
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { config } from '@/lib/config';
+import { BlockMetadata } from '@/lib/types';
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -94,5 +96,12 @@ const AuthSimpleCentered = React.forwardRef<
     </main>
   );
 });
+
+export const metadata: BlockMetadata = {
+  name: 'AuthSimpleCentered',
+  displayName: 'Auth Simple Centered',
+  description: 'Simple centered authentication form',
+  category: config.categories['auth'],
+};
 
 export default AuthSimpleCentered;

@@ -2,9 +2,12 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { config } from '@/lib/config';
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
 
 export default function Home() {
+  console.log('typeof config', typeof config);
+
   return (
     <main className="">
       <section id="hero" className="flex flex-col justify-end py-24">

@@ -1,4 +1,4 @@
-import AuthSimpleCentered from '@/registry/blocks/auth-simple-centered';
+import AuthSimpleCentered from '@/registry/blocks/auth/auth-simple-centered';
 
 export default async function Page() {
   return <AuthSimpleCentered />;
