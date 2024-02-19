@@ -19,7 +19,7 @@ const BlockCategoryHeader = React.forwardRef<
           <Crumb>Hero Component</Crumb>
           <Crumb>Hero Component</Crumb>
         </BreadCrumbs>
-        <p className="mt-8 text-3xl font-semibold text-foreground">
+        <p className="mt-4 text-3xl font-semibold text-foreground">
           Hero Components
         </p>
       </div>

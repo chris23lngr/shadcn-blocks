@@ -8,7 +8,7 @@ const BreadCrumbs = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn('flex items-center justify-start gap-1', className)}
+    className={cn('-ml-1.5 flex items-center justify-start gap-1', className)}
     {...props}
   />
 ));
@@ -27,7 +27,6 @@ const Crumb = React.forwardRef<
       )}
       {...props}
     />
-
     <ChevronRightIcon className="h-4 w-4 text-muted-foreground last:invisible last:hidden" />
   </>
 ));
