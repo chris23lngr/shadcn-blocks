@@ -10,11 +10,10 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
-import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import GoogleLogo from '../../../public/logos/google.svg';
-import SampleHeroImage from '../../../public/sample-hero-img.jpeg';
+// import GoogleLogo from '../../../public/logos/google.svg';
+// import SampleHeroImage from '../../../public/sample-hero-img.jpeg';
 
 interface AuthSplitWithImageProps
   extends React.HTMLAttributes<HTMLDivElement> {}
@@ -72,11 +71,11 @@ const AuthSplitWithImage = React.forwardRef<
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <Button variant={'outline'}>
-                  <Image
+                  {/* <Image
                     src={GoogleLogo}
                     alt="Google Logo"
                     className="me-2 h-5 w-5"
-                  />
+                  /> */}
                   Google
                 </Button>
                 <Button variant={'outline'}>
@@ -100,12 +99,12 @@ const AuthSplitWithImage = React.forwardRef<
           </div>
         </div>
         <div className="relative bg-muted">
-          <Image
+          {/* <Image
             src={SampleHeroImage}
             alt="Sample Hero Image"
             className="object-cover"
             layout={'fill'}
-          />
+          /> */}
         </div>
       </section>
     </main>

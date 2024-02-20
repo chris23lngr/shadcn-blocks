@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import { ChevronRightIcon } from 'lucide-react';
+import Link from 'next/link';
 import React from 'react';
 
 const BreadCrumbs = React.forwardRef<
@@ -15,11 +16,11 @@ const BreadCrumbs = React.forwardRef<
 BreadCrumbs.displayName = 'BreadCrumbs';
 
 const Crumb = React.forwardRef<
-  HTMLButtonElement,
-  React.HTMLAttributes<HTMLButtonElement>
+  HTMLAnchorElement,
+  React.HTMLAttributes<HTMLAnchorElement> & { href: string }
 >(({ className, ...props }, ref) => (
   <>
-    <button
+    <Link
       ref={ref}
       className={cn(
         'rounded px-1.5 py-0.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground',

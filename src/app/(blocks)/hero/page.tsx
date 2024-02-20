@@ -4,7 +4,7 @@ import { BlockPreview } from '@/components/block-preview';
 export default async function BlockCategoryPage() {
   return (
     <main>
-      <BlockCategoryHeader />
+      <BlockCategoryHeader crumbs={[]} title={''} />
       <section className="my-12 space-y-24">
         <div className="container">
           <BlockPreview

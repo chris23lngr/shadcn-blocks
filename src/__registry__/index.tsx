@@ -5,15 +5,16 @@
 // import * as React from "react"
 
 export const Index: Record<string, any> = {
-  "default": {
-    "auth": {
-      "auth-simple-centered": {
-        id: 'auth-simple-centered',
-        name: 'auth-simple-centered',
-        description: 'A simple centered authentication block',
+  default: {
+    auth: {
+      blocks: {
+        'auth-simple-centered': {
+          id: 'auth-simple-centered',
+          name: 'auth-simple-centered',
+          description: 'A simple centered authentication block',
+        },
       },
     },
-    "hero": {
-    },
-  }
-}
+    hero: {},
+  },
+};
