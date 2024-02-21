@@ -1,0 +1,28 @@
+.
+└── shadcn-blocks/
+    ├── src/
+    │   ├── app/
+    │   │   └── (ui)/
+    │   │       ├── page.tsx
+    │   │       └── [category]/
+    │   │           ├── page.tsx
+    │   │           └── [collection]/
+    │   │               └── page.tsx
+    │   ├── components/
+    │   │   ├── blocks/
+    │   │   │   └── [category]/
+    │   │   │       └── [collections]/
+    │   │   │           └── [block].tsx
+    │   │   └── ui/
+    │   ├── styles/
+    │   ├── lib/
+    │   ├── data/
+    │   │   └── blocks/
+    │   │       └── [category]/
+    │   │           └── metadata.mdx
+    │   │           └── [collections]/
+    │   │               └── metadata.mdx    
+    │   │               └── [block].mdx
+    │   └── mdx-components.tsx
+    ├── package.json
+    └── ...          
