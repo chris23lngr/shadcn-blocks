@@ -21,7 +21,7 @@ const BlockList = React.forwardRef<HTMLDivElement, BlockListProps>(
     } = props;
     return (
       <section ref={ref} className={cn('', className)} {...otherProps}>
-        <div className="container">
+        <div className="container space-y-64">
           {blocks.map((block, index) => {
             return (
               <BlockPreview

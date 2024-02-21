@@ -67,13 +67,14 @@ async function getCollection({
   if (!fs.existsSync(collectionMetaPath)) {
     // TODO Return Error
     // throw new Error(`Collection metadata not found: ${collectionMetaPath}`);
-    notFound();
+    throw new Error(`Collection metadata not found: ${collectionMetaPath}`);
   }
 
   // Read metadata from file
   const metadataFile = fs.readFileSync(collectionMetaPath, 'utf-8');
 
   const { data: frontmatter } = matter(metadataFile);
+  console.log(frontmatter);
 
   return frontmatter as CollectionMetadata;
 }

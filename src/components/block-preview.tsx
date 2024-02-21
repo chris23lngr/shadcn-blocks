@@ -35,11 +35,17 @@ const BlockPreview = React.forwardRef<HTMLDivElement, BlockPreviewProps>(
       return code;
     }, [blockMetadata.name]);
 
+    const path =
+      blockMetadata.name == 'centered-card'
+        ? '@/components/blocks/application/auth/centered-card'
+        : '@/components/blocks/application/auth/split-with-image';
+
     const Component: React.LazyExoticComponent<React.ComponentType<any>> =
       React.lazy(
         () =>
           import(
-            `@/components/blocks/${categoryId}/${collectionId}/${blockMetadata.name}`
+            // `@/components/blocks/${categoryId}/${collectionId}/${blockMetadata.name}`
+            '@/components/blocks/application/auth/centered-card'
           )
       );
 

@@ -29,6 +29,9 @@ type Config = {
   };
   navigation: { [key: string]: Category };
   categories: { [key: string]: Category };
+  repository: {
+    url: string;
+  };
 };
 
 type RegistryIndex = {

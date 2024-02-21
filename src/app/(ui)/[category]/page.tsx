@@ -110,9 +110,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   }
 
   return (
-    <main>
+    <>
       <CategoryHeader category={category} />
-      <CollectionsGrid category={category} collections={collections} />
-    </main>
+      <CollectionsGrid
+        category={category}
+        collections={collections}
+        className="mt-16"
+      />
+    </>
   );
 }

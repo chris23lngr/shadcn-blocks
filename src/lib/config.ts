@@ -11,6 +11,9 @@ export const config: Config = {
   },
   //   navigation: [],
   navigation: {},
+  repository: {
+    url: 'https://github.com/chris23lngr/shadcn-blocks',
+  },
   categories: {
     auth: {
       title: 'Authentication',

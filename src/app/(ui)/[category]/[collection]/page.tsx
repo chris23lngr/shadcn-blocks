@@ -32,13 +32,14 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
   }
 
   return (
-    <main>
+    <>
       <CollectionHeader collection={collectionMetadata} />
       <BlockList
+        className="mt-24"
         blocks={collectionMetadata.blocks}
         categoryId={category}
         collectionId={collection}
       />
-    </main>
+    </>
   );
 }

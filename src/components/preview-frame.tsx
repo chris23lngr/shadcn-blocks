@@ -55,7 +55,7 @@ const PreviewFrame: React.FC<PreviewFrameProps> = (props) => {
       }
       const link = iframeDocument.createElement('link');
       link.rel = 'stylesheet';
-      link.href = '_next/static/css/app/layout.css';
+      link.href = '/_next/static/css/app/layout.css';
 
       iframeDocument.head.appendChild(link);
     }
