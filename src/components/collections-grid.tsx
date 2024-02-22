@@ -1,10 +1,10 @@
-import type { CollectionMetadata } from '@/lib/types';
+import type { CategoryMetadata, CollectionMetadata } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import React from 'react';
 import { CollectionThumbnail } from './collection-thumbnail';
 
 interface CollectionsGridProps extends React.HTMLAttributes<HTMLDivElement> {
-  category: CollectionMetadata;
+  category: CategoryMetadata;
   collections: CollectionMetadata[];
 }
 
