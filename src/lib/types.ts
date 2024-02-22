@@ -6,18 +6,6 @@ type Category = {
   //   image: string;
 };
 
-type BlockMetadataXX = {
-  name: string;
-  displayName: string;
-  description: string;
-  category: Category;
-};
-
-type BlockMeta = {
-  title: string;
-  description?: string;
-};
-
 type Config = {
   site: {
     title: string;
@@ -27,29 +15,15 @@ type Config = {
     path: string;
     blockPath: string;
   };
-  navigation: { [key: string]: Category };
-  categories: { [key: string]: Category };
+  navigation: Record<string, Category>;
+  categories: Record<string, Category>;
   repository: {
     url: string;
   };
 };
 
 type RegistryIndex = {
-  default: {
-    [key: string]: {
-      // category
-      [key: string]: BlockMetadata;
-    };
-  };
-};
-
-type Index = {
-  default: {
-    // Categories
-    // Blocks
-    // Blockk metadata
-  };
-  'new-york': {};
+  default: Record<string, Record<string, BlockMetadata>>;
 };
 
 type CollectionMetadata = {

@@ -1,10 +1,7 @@
 import { cn } from '@/lib/utils';
 import React from 'react';
 
-interface IconProps extends React.HTMLAttributes<HTMLOrSVGElement> {}
-
-const Icon: React.FC<IconProps> = (props) => {
-  const { children, className, ...otherProps } = props;
+const Icon: React.FC<React.HTMLAttributes<HTMLOrSVGElement>> = (_) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -24,8 +21,10 @@ const Icon: React.FC<IconProps> = (props) => {
   );
 };
 
-const GithubIcon: React.FC<IconProps> = (props) => {
-  const { children, className, ...otherProps } = props;
+const GithubIcon: React.FC<React.HTMLAttributes<HTMLOrSVGElement>> = (
+  props
+) => {
+  const { className, ...otherProps } = props;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +32,8 @@ const GithubIcon: React.FC<IconProps> = (props) => {
       height="1024"
       viewBox="0 0 1024 1024"
       fill="none"
-      className={className}
+      className={cn(className)}
+      {...otherProps}
     >
       <path
         fill-rule="evenodd"
@@ -46,15 +46,18 @@ const GithubIcon: React.FC<IconProps> = (props) => {
   );
 };
 
-const GoogleIcon: React.FC<IconProps> = (props) => {
-  const { children, className, ...otherProps } = props;
+const GoogleIcon: React.FC<React.HTMLAttributes<HTMLOrSVGElement>> = (
+  props
+) => {
+  const { className, ...otherProps } = props;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       height="24"
       viewBox="0 0 24 24"
       width="24"
-      className={className}
+      className={cn(className)}
+      {...otherProps}
     >
       <path
         d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -77,8 +80,10 @@ const GoogleIcon: React.FC<IconProps> = (props) => {
   );
 };
 
-const AdobeWoodmarkIcon: React.FC<IconProps> = (props) => {
-  const { children, className, ...otherProps } = props;
+const AdobeWoodmarkIcon: React.FC<React.HTMLAttributes<HTMLOrSVGElement>> = (
+  props
+) => {
+  const { className, ...otherProps } = props;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -103,8 +108,10 @@ const AdobeWoodmarkIcon: React.FC<IconProps> = (props) => {
   );
 };
 
-const NetflixIcon: React.FC<IconProps> = (props) => {
-  const { children, className, ...otherProps } = props;
+const NetflixIcon: React.FC<React.HTMLAttributes<HTMLOrSVGElement>> = (
+  props
+) => {
+  const { className, ...otherProps } = props;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -122,8 +129,10 @@ const NetflixIcon: React.FC<IconProps> = (props) => {
   );
 };
 
-const AmazonIcon: React.FC<IconProps> = (props) => {
-  const { children, className, ...otherProps } = props;
+const AmazonIcon: React.FC<React.HTMLAttributes<HTMLOrSVGElement>> = (
+  props
+) => {
+  const { className, ...otherProps } = props;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -170,8 +179,8 @@ const AmazonIcon: React.FC<IconProps> = (props) => {
   );
 };
 
-const MetaIcon: React.FC<IconProps> = (props) => {
-  const { children, className, ...otherProps } = props;
+const MetaIcon: React.FC<React.HTMLAttributes<HTMLOrSVGElement>> = (props) => {
+  const { className, ...otherProps } = props;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -208,8 +217,10 @@ const MetaIcon: React.FC<IconProps> = (props) => {
   );
 };
 
-const VercelWoodmarkIcon: React.FC<IconProps> = (props) => {
-  const { children, className, ...otherProps } = props;
+const VercelWoodmarkIcon: React.FC<React.HTMLAttributes<HTMLOrSVGElement>> = (
+  props
+) => {
+  const { className, ...otherProps } = props;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

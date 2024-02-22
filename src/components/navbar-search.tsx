@@ -8,7 +8,7 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
-import { CommandItemGroup } from '@/lib/types';
+import type { CommandItemGroup } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
@@ -52,9 +52,12 @@ function NavbarSearch({ items }: { items: CommandItemGroup[] }) {
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          {items.map((category) => {
+          {items.map((category, index) => {
             return (
-              <CommandGroup heading={category.label}>
+              <CommandGroup
+                heading={category.label}
+                key={`${category.id}-${index}`}
+              >
                 {category.collections.map((collection) => {
                   return (
                     <CommandItem

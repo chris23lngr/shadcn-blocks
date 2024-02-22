@@ -31,5 +31,6 @@ const Crumb = React.forwardRef<
     <ChevronRightIcon className="h-4 w-4 text-muted-foreground last:invisible last:hidden" />
   </>
 ));
+Crumb.displayName = 'Crumb';
 
 export { BreadCrumbs, Crumb };

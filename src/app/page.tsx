@@ -63,31 +63,29 @@ export default async function Home() {
         <div className="container grid grid-cols-5 gap-6">
           <p className="text-lg font-medium text-foreground">Application</p>
           <div className="col-span-4 grid grid-cols-4 gap-6">
-            {applicationCollections.data &&
-              applicationCollections.data.map((collection) => {
-                return (
-                  <CollectionThumbnail
-                    key={collection.id}
-                    collection={collection}
-                    categoryId={'application'}
-                  />
-                );
-              })}
+            {applicationCollections.data?.map((collection) => {
+              return (
+                <CollectionThumbnail
+                  key={collection.id}
+                  collection={collection}
+                  categoryId={'application'}
+                />
+              );
+            })}
           </div>
         </div>
         <div className="container grid grid-cols-5 gap-6">
           <p className="text-lg font-medium text-foreground">Marketing</p>
           <div className="col-span-4 grid grid-cols-4 gap-6">
-            {marketingsCollections.data &&
-              marketingsCollections.data.map((collection) => {
-                return (
-                  <CollectionThumbnail
-                    key={collection.id}
-                    collection={collection}
-                    categoryId={'marketing'}
-                  />
-                );
-              })}
+            {marketingsCollections.data?.map((collection) => {
+              return (
+                <CollectionThumbnail
+                  key={collection.id}
+                  collection={collection}
+                  categoryId={'marketing'}
+                />
+              );
+            })}
           </div>
         </div>
       </section>

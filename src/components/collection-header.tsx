@@ -1,4 +1,4 @@
-import { CategoryMetadata, CollectionMetadata } from '@/lib/types';
+import type { CategoryMetadata, CollectionMetadata } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import React from 'react';
 import { BreadCrumbs, Crumb } from './breadcrumbs';
@@ -12,7 +12,7 @@ const CollectionHeader = React.forwardRef<
   HTMLDivElement,
   CollectionHeaderProps
 >((props, ref) => {
-  const { category, collection, children, className, ...otherProps } = props;
+  const { category, collection, className, ...otherProps } = props;
   return (
     <section
       id={`${collection.id ? collection.id : 'collection'}-header`}

@@ -1,7 +1,7 @@
 import { getCategories } from '@/lib/category';
 import { getCollections } from '@/lib/collection';
 import { config } from '@/lib/config';
-import { CollectionMetadata, CommandItemGroup } from '@/lib/types';
+import type { CollectionMetadata, CommandItemGroup } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import React from 'react';
@@ -9,18 +9,19 @@ import { Icon } from './icons';
 import { NavbarMenu } from './navbar-menu';
 import { NavbarSearch } from './navbar-search';
 
-interface NavbarProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-async function Navbar(props: NavbarProps, ref?: React.Ref<HTMLDivElement>) {
+async function Navbar(
+  props: React.HTMLAttributes<HTMLDivElement>,
+  ref?: React.Ref<HTMLDivElement>
+) {
   const { className, ...otherProps } = props;
 
   const categories = await getCategories();
 
-  let commandItems: CommandItemGroup[] = [];
+  const commandItems: CommandItemGroup[] = [];
 
   if (categories.data != null) {
     for (const category of categories.data) {
-      let collectionsArr: CollectionMetadata[] = [];
+      const collectionsArr: CollectionMetadata[] = [];
 
       const collections = await getCollections(category.id);
 

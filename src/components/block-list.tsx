@@ -1,4 +1,4 @@
-import { BlockMetadata } from '@/lib/types';
+import type { BlockMetadata } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import React from 'react';
 import { BlockPreview } from './block-preview';
@@ -11,14 +11,8 @@ interface BlockListProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const BlockList = React.forwardRef<HTMLDivElement, BlockListProps>(
   (props, ref) => {
-    const {
-      categoryId,
-      collectionId,
-      blocks,
-      children,
-      className,
-      ...otherProps
-    } = props;
+    const { categoryId, collectionId, blocks, className, ...otherProps } =
+      props;
     return (
       <section ref={ref} className={cn('', className)} {...otherProps}>
         <div className="container space-y-64">

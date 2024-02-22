@@ -1,20 +1,16 @@
-import { CollectionMetadata } from '@/lib/types';
+import type { CollectionMetadata } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import React from 'react';
 import { CollectionThumbnail } from './collection-thumbnail';
 
 interface CollectionsGridProps extends React.HTMLAttributes<HTMLDivElement> {
-  category: Partial<CollectionMetadata>;
-  collections: Partial<CollectionMetadata>[];
+  category: CollectionMetadata;
+  collections: CollectionMetadata[];
 }
 
 const CollectionsGrid = React.forwardRef<HTMLDivElement, CollectionsGridProps>(
   (props, ref) => {
-    const { collections, category, children, className, ...otherProps } = props;
-
-    if (category.id === undefined) {
-      throw new Error('Category ID is required');
-    }
+    const { collections, category, className, ...otherProps } = props;
 
     return (
       <section
@@ -28,7 +24,6 @@ const CollectionsGrid = React.forwardRef<HTMLDivElement, CollectionsGridProps>(
             return (
               <CollectionThumbnail
                 key={collection.id}
-                // @ts-ignore Fix: field id is checked in the if statement above
                 categoryId={category.id}
                 collection={collection}
               />

@@ -51,7 +51,7 @@ const TeamGridWithCards: React.FC = () => {
         <div className="container mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
           {teamMembers.map((member, index) => {
             return (
-              <Card>
+              <Card key={`member-${index}`}>
                 <Image
                   src={member.image}
                   alt="Team Member 1"

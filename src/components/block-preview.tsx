@@ -1,9 +1,9 @@
 'use client';
 
-import { BlockMetadata } from '@/lib/types';
+import type { BlockMetadata } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { ClipboardIcon } from '@radix-ui/react-icons';
-import { TabsProps } from '@radix-ui/react-tabs';
+import type { TabsProps } from '@radix-ui/react-tabs';
 import React from 'react';
 import { toast } from 'sonner';
 import '../styles/prism/prism-dark.css';
@@ -19,10 +19,7 @@ interface BlockPreviewProps extends TabsProps {
 }
 
 const BlockPreview = React.forwardRef<HTMLDivElement, BlockPreviewProps>(
-  (
-    { categoryId, collectionId, blockMetadata, children, className, ...props },
-    ref
-  ) => {
+  ({ categoryId, collectionId, blockMetadata, className, ...props }, ref) => {
     const code: string = React.useMemo(() => {
       const code = `<p className="text-sm text-muted-foreground">
   Code for{' '}
@@ -33,35 +30,27 @@ const BlockPreview = React.forwardRef<HTMLDivElement, BlockPreviewProps>(
 </p>`;
 
       return code;
-    }, [blockMetadata.id]);
+    }, []);
 
-    const path =
-      blockMetadata.id == 'centered-card'
-        ? '@/components/blocks/application/auth/centered-card'
-        : '@/components/blocks/application/auth/split-with-image';
-
-    console.log(blockMetadata);
-    console.log(
-      `@/components/blocks/${categoryId}/${collectionId}/${blockMetadata.id}`
-    );
-
-    const Component: React.LazyExoticComponent<React.ComponentType<any>> =
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const Component: React.LazyExoticComponent<React.ComponentType> =
       React.lazy(
-        () =>
+        (): Promise<{ default: React.ComponentType }> =>
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
           import(
             `@/components/blocks/${categoryId}/${collectionId}/${blockMetadata.id}`
           )
       );
 
     const onCopy = React.useCallback(() => {
-      async function go() {
+      async function go(): Promise<void> {
         await navigator.clipboard.writeText(code);
 
         toast.success(`Block '${blockMetadata.label}' copied to clipboard`);
       }
 
-      go();
-    }, [code]);
+      void go();
+    }, [code, blockMetadata.label]);
 
     return (
       <Tabs
@@ -100,13 +89,5 @@ const BlockPreview = React.forwardRef<HTMLDivElement, BlockPreviewProps>(
   }
 );
 BlockPreview.displayName = 'BlockPreview';
-
-/**
- * BlockPreviewComponent
- */
-interface BlockPreviewComponentProps
-  extends React.HTMLAttributes<HTMLDivElement> {
-  name: string;
-}
 
 export { BlockPreview };

@@ -19,17 +19,17 @@ const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
     const ref = React.useRef<HTMLPreElement>(null);
 
     React.useEffect(() => {
-      const highlight = async () => {
+      const highlight = async (): Promise<void> => {
         if (ref.current === null) {
           // Ref is not ready yet
           return;
         }
 
         // Highlight the code block with Prism
-        Prism.highlightElement(ref.current!);
+        Prism.highlightElement(ref.current);
       };
 
-      highlight();
+      void highlight();
     }, [, ref, code]);
 
     return (

@@ -3,7 +3,7 @@
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
-import { APIResponse, CollectionMetadata } from './types';
+import type { APIResponse, CollectionMetadata } from './types';
 
 async function getCollections(
   category: string
@@ -19,7 +19,7 @@ async function getCollections(
   }
 
   const categoryChildren = fs.readdirSync(categoryPath);
-  let resolvedCollections: CollectionMetadata[] = [];
+  const resolvedCollections: CollectionMetadata[] = [];
 
   for (const child of categoryChildren) {
     if (child === 'metadata.mdx') {

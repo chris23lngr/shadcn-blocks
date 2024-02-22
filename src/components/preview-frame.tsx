@@ -9,23 +9,18 @@ import {
   ResizablePanelGroup,
 } from './ui/resizable';
 
-interface PreviewFrameProps
-  extends React.IframeHTMLAttributes<HTMLIFrameElement> {}
-
-const PreviewFrame: React.FC<PreviewFrameProps> = (props) => {
+const PreviewFrame: React.FC<React.IframeHTMLAttributes<HTMLIFrameElement>> = (
+  props
+) => {
   const { children, className, ...otherProps } = props;
   const ref = React.useRef<HTMLIFrameElement | null>(null);
   const [mountNode, setMountNode] = React.useState<HTMLElement | null>(null);
   const iframeKey = React.useId();
 
   React.useEffect(() => {
-    if (ref && ref.current) {
+    if (ref?.current) {
       // check if the iframe is ready
-      if (
-        !ref.current.contentWindow ||
-        !ref.current.contentWindow.document ||
-        !ref.current.contentWindow.document.body
-      ) {
+      if (!ref.current?.contentWindow?.document?.body) {
         setMountNode(null);
         return;
       }
@@ -43,10 +38,10 @@ const PreviewFrame: React.FC<PreviewFrameProps> = (props) => {
     } else {
       setMountNode(null);
     }
-  }, [ref.current]);
+  }, []);
 
   const applyTwToIframe = () => {
-    if (ref && ref.current) {
+    if (ref?.current) {
       const iframe = ref.current;
       const iframeDocument = iframe.contentDocument;
 

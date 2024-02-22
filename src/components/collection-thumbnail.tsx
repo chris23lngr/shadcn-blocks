@@ -1,8 +1,9 @@
 'use server';
 
-import { CollectionMetadata } from '@/lib/types';
+import type { CollectionMetadata } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import fs from 'fs';
+import type { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import Link from 'next/link';
 import path from 'path';
@@ -17,7 +18,7 @@ interface CollectionThumbnailProps
 }
 
 async function CollectionThumbnail(props: CollectionThumbnailProps) {
-  const { categoryId, collection, children, className, ...otherProps } = props;
+  const { categoryId, collection, className, ...otherProps } = props;
 
   const thumbnailPath = path.join(
     process.cwd(),
@@ -25,7 +26,7 @@ async function CollectionThumbnail(props: CollectionThumbnailProps) {
     `${collection.id}.svg`
   );
 
-  let thumbnailSrc = FallbackThumbnail;
+  let thumbnailSrc: string | StaticImport = FallbackThumbnail as StaticImport;
 
   if (fs.existsSync(thumbnailPath)) {
     thumbnailSrc = `/collections/${collection.id}.svg`;

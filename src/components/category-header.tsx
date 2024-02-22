@@ -1,4 +1,4 @@
-import { CategoryMetadata } from '@/lib/types';
+import type { CategoryMetadata } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import React from 'react';
 import { BreadCrumbs, Crumb } from './breadcrumbs';
@@ -9,7 +9,7 @@ interface CategoryHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const CategoryHeader = React.forwardRef<HTMLDivElement, CategoryHeaderProps>(
   (props, ref) => {
-    const { category, children, className, ...otherProps } = props;
+    const { category, className, ...otherProps } = props;
     return (
       <section
         id={`${category.id ? category.id : 'collection'}-header`}

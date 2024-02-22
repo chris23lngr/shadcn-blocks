@@ -1,7 +1,7 @@
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
-import { APIResponse, BlockMetadata } from './types';
+import type { APIResponse, BlockMetadata } from './types';
 
 async function getBlock(
   category: string,
@@ -50,7 +50,7 @@ async function getBlocks(
   }
 
   const collectionChildren = fs.readdirSync(collectionPath);
-  let resolvedBlocks: BlockMetadata[] = [];
+  const resolvedBlocks: BlockMetadata[] = [];
 
   for (const child of collectionChildren) {
     if (child === 'metadata.mdx') {

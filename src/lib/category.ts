@@ -1,14 +1,14 @@
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
-import { APIResponse, CategoryMetadata } from './types';
+import type { APIResponse, CategoryMetadata } from './types';
 
 async function getCategories(): Promise<
   APIResponse & {
     data: CategoryMetadata[] | null;
   }
 > {
-  let resolvedCategories: CategoryMetadata[] = [];
+  const resolvedCategories: CategoryMetadata[] = [];
 
   const categoriesPath = path.join(process.cwd(), '/src/data/blocks');
 
