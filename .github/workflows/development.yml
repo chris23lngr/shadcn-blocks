@@ -1,6 +1,7 @@
 name: Pull Request CI
 on:
   pull_request:
+    types: [opened, reopened]
     branches:
       - development
 jobs:
