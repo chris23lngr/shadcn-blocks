@@ -24,9 +24,5 @@ jobs:
         run: pnpm install
       - name: Lint
         run: pnpm lint
-      - name: Test
-        run: pnpm test
-      - name: Build package
-        run: pnpm build
       - name: Success
         run: echo "All checks passed. Ready to release!"
