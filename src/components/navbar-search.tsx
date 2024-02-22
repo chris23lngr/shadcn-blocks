@@ -1,6 +1,5 @@
 'use client';
 
-import { Index } from '@/__registry__';
 import {
   CommandDialog,
   CommandEmpty,
@@ -9,10 +8,11 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
+import { CommandItemGroup } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-function NavbarSearch() {
+function NavbarSearch({ items }: { items: CommandItemGroup[] }) {
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -52,7 +52,7 @@ function NavbarSearch() {
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          {Index.map((category) => {
+          {items.map((category) => {
             return (
               <CommandGroup heading={category.label}>
                 {category.collections.map((collection) => {
@@ -65,16 +65,28 @@ function NavbarSearch() {
                           router.push(`/${category.id}/${collection.id}`)
                         );
                       }}
-                    />
+                    >
+                      <p>{collection.label}</p>
+                    </CommandItem>
                   );
                 })}
               </CommandGroup>
             );
           })}
-          <CommandGroup heading="Suggestions">
-            <CommandItem>Calendar</CommandItem>
-            <CommandItem>Search Emoji</CommandItem>
-            <CommandItem>Calculator</CommandItem>
+          <CommandGroup heading="Categories">
+            {items.map((category) => {
+              return (
+                <CommandItem
+                  key={category.id}
+                  value={category.label}
+                  onSelect={() => {
+                    runCommand(() => router.push(`/${category.id}`));
+                  }}
+                >
+                  <p>{category.label}</p>
+                </CommandItem>
+              );
+            })}
           </CommandGroup>
         </CommandList>
       </CommandDialog>

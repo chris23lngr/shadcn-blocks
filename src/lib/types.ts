@@ -66,15 +66,26 @@ type CategoryMetadata = {
 };
 
 type BlockMetadata = {
-  name: string;
+  id: string;
   label: string;
 };
 
+type APIResponse = {
+  error: string | null;
+};
+
+type CommandItemGroup = CategoryMetadata & {
+  collections: Omit<CollectionMetadata, 'blocks'>[];
+};
+
 export type {
+  APIResponse,
   BlockMetadata,
-  Category,
+  // Category,
   CategoryMetadata,
   CollectionMetadata,
+  CommandItemGroup,
+  // Category,
   Config,
   RegistryIndex,
 };

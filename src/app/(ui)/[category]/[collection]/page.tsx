@@ -1,8 +1,7 @@
 import { BlockList } from '@/components/block-list';
 import { CollectionHeader } from '@/components/collection-header';
-import { getBlocks } from '@/lib/block';
+import { getCategory } from '@/lib/category';
 import { getCollection } from '@/lib/collection';
-import { CollectionMetadata } from '@/lib/types';
 import { notFound } from 'next/navigation';
 
 interface CollectionPageProps {
@@ -10,35 +9,42 @@ interface CollectionPageProps {
 }
 
 export default async function CollectionPage({ params }: CollectionPageProps) {
-  const { category, collection } = params;
+  const { category: categoryId, collection: collectionId } = params;
 
   // Check if category or collection is not found
-  if (!category || !collection) {
+  if (!categoryId || !collectionId) {
     return notFound();
   }
 
-  const collectionMetadata: Partial<CollectionMetadata> | null =
-    await getCollection({ category, collection });
+  const collection = await getCollection({
+    category: categoryId,
+    collection: collectionId,
+  });
 
-  if (collectionMetadata === null) {
-    // TODO Return Error
-    return notFound();
+  if (!collection.data) {
+    throw new Error(
+      collection.error
+        ? collection.error
+        : 'An unexpected server error occurred.'
+    );
   }
 
-  const blocks = await getBlocks(category, collection);
+  const category = await getCategory(categoryId);
 
-  if (!collectionMetadata.blocks) {
-    throw new Error('Blocks not found');
+  if (!category.data) {
+    throw new Error(
+      category.error ? category.error : 'An unexpected server error occurred.'
+    );
   }
 
   return (
     <>
-      <CollectionHeader collection={collectionMetadata} />
+      <CollectionHeader collection={collection.data} category={category.data} />
       <BlockList
         className="mt-24"
-        blocks={collectionMetadata.blocks}
-        categoryId={category}
-        collectionId={collection}
+        blocks={collection.data.blocks}
+        categoryId={category.data.id}
+        collectionId={collection.data.id}
       />
     </>
   );

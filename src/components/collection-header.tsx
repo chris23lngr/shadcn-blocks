@@ -1,16 +1,18 @@
-import { CollectionMetadata } from '@/lib/types';
+import { CategoryMetadata, CollectionMetadata } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import React from 'react';
+import { BreadCrumbs, Crumb } from './breadcrumbs';
 
 interface CollectionHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   collection: Partial<CollectionMetadata>;
+  category: Partial<CategoryMetadata>;
 }
 
 const CollectionHeader = React.forwardRef<
   HTMLDivElement,
   CollectionHeaderProps
 >((props, ref) => {
-  const { collection, children, className, ...otherProps } = props;
+  const { category, collection, children, className, ...otherProps } = props;
   return (
     <section
       id={`${collection.id ? collection.id : 'collection'}-header`}
@@ -19,6 +21,11 @@ const CollectionHeader = React.forwardRef<
       {...otherProps}
     >
       <div className="container">
+        <BreadCrumbs className="mb-8">
+          <Crumb href="/">Home</Crumb>
+          <Crumb href={`/${category.id}`}>{category.label}</Crumb>
+          <Crumb href={'#'}>{collection.label}</Crumb>
+        </BreadCrumbs>
         <p className="mb-3 text-4xl font-semibold text-foreground">
           {collection.label}
         </p>

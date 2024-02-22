@@ -1,15 +1,29 @@
-'use client';
-
 import { CollectionThumbnail } from '@/components/collection-thumbnail';
-import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { getCategories } from '@/lib/category';
+import { getCollections } from '@/lib/collection';
 import { config } from '@/lib/config';
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
-import Image from 'next/image';
-import CollectionHeroThumbnail from '../../public/collections/hero.svg';
+import Link from 'next/link';
 
-export default function Home() {
-  console.log('typeof config', typeof config);
+export default async function Home() {
+  const categories = await getCategories();
+
+  if (!categories) {
+    return <div>Loading...</div>;
+  }
+
+  const applicationCollections = await getCollections('application');
+
+  if (applicationCollections == null) {
+    return <div>Loading...</div>;
+  }
+
+  const marketingsCollections = await getCollections('marketing');
+
+  if (marketingsCollections == null) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <main className="">
@@ -32,38 +46,49 @@ export default function Home() {
           </p>
           <div className="mt-8 flex w-fit items-center justify-center gap-4">
             <Button>Get Started</Button>
-            <Button variant="outline">
+            <Link
+              className={buttonVariants({ variant: 'outline' })}
+              href={config.repository.url}
+              target="_blank"
+            >
               <GitHubLogoIcon className="me-2 h-5 w-5" />
               Github
-            </Button>
+            </Link>
           </div>
         </div>
         <div className="mt-12"></div>
       </section>
 
-      <section id="categories" className="mb-64">
+      <section id="categories" className="mb-6 space-y-24">
         <div className="container grid grid-cols-5 gap-6">
           <p className="text-lg font-medium text-foreground">Application</p>
-
-          <CollectionThumbnail
-            categoryId={'marketing'}
-            collection={{
-              id: 'hero',
-              label: 'Hero',
-              description:
-                'Hero sections are the first thing your users see when they land on your website. It is important to make a good first impression.',
-            }}
-          />
-          <Card>
-            <Image
-              src={CollectionHeroThumbnail}
-              alt="Collection Hero"
-              className="rounded-t-lg border-b border-border"
-            />
-            <CardHeader>
-              <CardTitle>Hero Sections</CardTitle>
-            </CardHeader>
-          </Card>
+          <div className="col-span-4 grid grid-cols-4 gap-6">
+            {applicationCollections.data &&
+              applicationCollections.data.map((collection) => {
+                return (
+                  <CollectionThumbnail
+                    key={collection.id}
+                    collection={collection}
+                    categoryId={'application'}
+                  />
+                );
+              })}
+          </div>
+        </div>
+        <div className="container grid grid-cols-5 gap-6">
+          <p className="text-lg font-medium text-foreground">Marketing</p>
+          <div className="col-span-4 grid grid-cols-4 gap-6">
+            {marketingsCollections.data &&
+              marketingsCollections.data.map((collection) => {
+                return (
+                  <CollectionThumbnail
+                    key={collection.id}
+                    collection={collection}
+                    categoryId={'marketing'}
+                  />
+                );
+              })}
+          </div>
         </div>
       </section>
     </main>

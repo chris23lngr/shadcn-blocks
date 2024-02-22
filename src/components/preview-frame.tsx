@@ -60,20 +60,20 @@ const PreviewFrame: React.FC<PreviewFrameProps> = (props) => {
       iframeDocument.head.appendChild(link);
     }
   };
-
   return (
     <ResizablePanelGroup direction="horizontal">
       <ResizablePanel defaultSize={100} minSize={25}>
         <iframe
           ref={ref}
-          {...otherProps}
           className={cn('rounded-lg border border-border', className)}
+          // onLoad={resizeIframe}
+          {...otherProps}
         >
           {mountNode && createPortal(children, mountNode, iframeKey)}
         </iframe>
       </ResizablePanel>
       <ResizableHandle className="w-fit bg-transparent ps-2">
-        <div className="h-20 w-1.5 rounded-full bg-border" />
+        <div className="z-0 h-20 w-1.5 rounded-full bg-border" />
       </ResizableHandle>
       <ResizablePanel />
     </ResizablePanelGroup>

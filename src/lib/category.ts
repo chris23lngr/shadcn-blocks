@@ -1,16 +1,23 @@
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
-import { Category, CategoryMetadata } from './types';
+import { APIResponse, CategoryMetadata } from './types';
 
-async function getCategories(): Promise<Partial<CategoryMetadata>[] | null> {
-  let resolvedCategories: Partial<Category>[] = [];
+async function getCategories(): Promise<
+  APIResponse & {
+    data: CategoryMetadata[] | null;
+  }
+> {
+  let resolvedCategories: CategoryMetadata[] = [];
 
   const categoriesPath = path.join(process.cwd(), '/src/data/blocks');
 
   if (!fs.existsSync(categoriesPath)) {
-    console.error('Categories not found');
-    throw new Error('Categories not found');
+    console.error(`Path to categories does not exist: ${categoriesPath}`);
+    return {
+      error: `Path to categories does not exist: ${categoriesPath}`,
+      data: null,
+    };
   }
 
   const categoryChildren = fs.readdirSync(categoriesPath);
@@ -18,20 +25,20 @@ async function getCategories(): Promise<Partial<CategoryMetadata>[] | null> {
   for (const child of categoryChildren) {
     const category = await getCategory(child);
 
-    if (category === null) {
+    if (category.data === null) {
       console.error('Category not found');
       continue;
     }
 
-    resolvedCategories.push(category);
+    resolvedCategories.push(category.data);
   }
 
-  return resolvedCategories;
+  return { error: null, data: resolvedCategories };
 }
 
 async function getCategory(
   categorySlug: string
-): Promise<Partial<CategoryMetadata> | null> {
+): Promise<APIResponse & { data: CategoryMetadata | null }> {
   const categoryPath = path.join(
     process.cwd(),
     '/src/data/blocks',
@@ -39,8 +46,11 @@ async function getCategory(
   );
 
   if (!fs.existsSync(categoryPath)) {
-    console.error(`Category ${categorySlug} not found`);
-    throw new Error(`Category ${categorySlug} not found`);
+    console.error(`Path to category does not exist: ${categoryPath}`);
+    return {
+      error: `Path to category does not exist: ${categoryPath}`,
+      data: null,
+    };
   }
 
   const categoryMetadataPath = path.join(
@@ -54,7 +64,7 @@ async function getCategory(
 
   const { data: frontmatter } = matter(categoryMetadataFile);
 
-  return frontmatter as CategoryMetadata;
+  return { error: null, data: frontmatter as CategoryMetadata };
 }
 
 export { getCategories, getCategory };

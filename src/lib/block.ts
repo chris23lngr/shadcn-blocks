@@ -1,13 +1,13 @@
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
-import { BlockMetadata } from './types';
+import { APIResponse, BlockMetadata } from './types';
 
 async function getBlock(
   category: string,
   collection: string,
   block: string
-): Promise<Partial<BlockMetadata> | null> {
+): Promise<APIResponse & { data: BlockMetadata | null }> {
   const blockPath = path.join(
     '/src/data/blocks',
     category,
@@ -16,21 +16,24 @@ async function getBlock(
   );
 
   if (!fs.existsSync(blockPath)) {
-    console.error('Block not found');
-    return null;
+    console.error(`Path to block does not exist: ${blockPath}`);
+    return {
+      error: `Path to collection does not exist: ${blockPath}`,
+      data: null,
+    };
   }
 
   const blockFile = fs.readFileSync(blockPath, 'utf-8');
 
   const { data: frontmatter } = matter(blockFile);
 
-  return frontmatter as BlockMetadata;
+  return { error: null, data: frontmatter as BlockMetadata };
 }
 
 async function getBlocks(
   category: string,
   collection: string
-): Promise<Partial<BlockMetadata>[] | null> {
+): Promise<APIResponse & { data: BlockMetadata[] | null }> {
   const collectionPath = path.join(
     process.cwd(),
     '/src/data/blocks',
@@ -39,8 +42,11 @@ async function getBlocks(
   );
 
   if (!fs.existsSync(collectionPath)) {
-    console.error('Collection not found');
-    return null;
+    console.error(`Path to collection does not exist: ${collection}`);
+    return {
+      error: `Path to collection does not exist: ${collection}`,
+      data: null,
+    };
   }
 
   const collectionChildren = fs.readdirSync(collectionPath);
@@ -55,13 +61,13 @@ async function getBlocks(
     const childPath = path.join(collectionPath, child);
 
     if (fs.lstatSync(childPath).isDirectory()) {
-      console.warn('Skipping directory:', childPath);
+      console.info('Skipping directory:', childPath);
       continue;
     }
 
     // Skip files that don't end in .mdx or end in info.md
     if (!child.endsWith('.mdx') || child.endsWith('info.mdx')) {
-      console.warn('ignoring file:', childPath);
+      console.info('ignoring file:', childPath);
       continue;
     }
 
@@ -74,7 +80,7 @@ async function getBlocks(
     resolvedBlocks.push(frontmatter as BlockMetadata);
   }
 
-  return resolvedBlocks;
+  return { error: null, data: resolvedBlocks };
 }
 
 export { getBlock, getBlocks };

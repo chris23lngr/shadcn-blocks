@@ -2,18 +2,20 @@
 
 import fs from 'fs';
 import matter from 'gray-matter';
-import { notFound } from 'next/navigation';
 import path from 'path';
-import { CollectionMetadata } from './types';
+import { APIResponse, CollectionMetadata } from './types';
 
 async function getCollections(
   category: string
-): Promise<Partial<CollectionMetadata>[] | null> {
+): Promise<APIResponse & { data: CollectionMetadata[] | null }> {
   const categoryPath = path.join(process.cwd(), '/src/data/blocks', category);
 
   if (!fs.existsSync(categoryPath)) {
-    console.error('Category not found');
-    notFound();
+    console.error(`Path to collection does not exist: ${categoryPath}`);
+    return {
+      error: `Path to collection does not exist: ${categoryPath}`,
+      data: null,
+    };
   }
 
   const categoryChildren = fs.readdirSync(categoryPath);
@@ -28,13 +30,13 @@ async function getCollections(
     const childPath = path.join(categoryPath, child);
 
     if (fs.lstatSync(childPath).isDirectory()) {
-      console.warn('Skipping directory:', childPath);
+      console.info('Skipping directory:', childPath);
       continue;
     }
 
     // Skip files that don't end in .mdx or end in info.md
     if (!child.endsWith('.mdx') || child.endsWith('info.mdx')) {
-      console.warn('ignoring file:', childPath);
+      console.info('ignoring file:', childPath);
       continue;
     }
 
@@ -45,7 +47,7 @@ async function getCollections(
     resolvedCollections.push(frontmatter as CollectionMetadata);
   }
 
-  return resolvedCollections;
+  return { error: null, data: resolvedCollections };
 }
 
 async function getCollection({
@@ -54,7 +56,7 @@ async function getCollection({
 }: {
   category: string;
   collection: string;
-}): Promise<Partial<CollectionMetadata> | null> {
+}): Promise<APIResponse & { data: CollectionMetadata | null }> {
   // Get Collection Metadata
 
   const collectionMetaPath = path.join(
@@ -65,9 +67,11 @@ async function getCollection({
   );
 
   if (!fs.existsSync(collectionMetaPath)) {
-    // TODO Return Error
-    // throw new Error(`Collection metadata not found: ${collectionMetaPath}`);
-    throw new Error(`Collection metadata not found: ${collectionMetaPath}`);
+    console.error(`Path to collection does not exist: ${collectionMetaPath}`);
+    return {
+      error: `Path to collection does not exist: ${collectionMetaPath}`,
+      data: null,
+    };
   }
 
   // Read metadata from file
@@ -76,7 +80,7 @@ async function getCollection({
   const { data: frontmatter } = matter(metadataFile);
   console.log(frontmatter);
 
-  return frontmatter as CollectionMetadata;
+  return { error: null, data: frontmatter as CollectionMetadata };
 }
 
 export { getCollection, getCollections };

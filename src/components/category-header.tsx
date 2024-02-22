@@ -1,6 +1,7 @@
 import { CategoryMetadata } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import React from 'react';
+import { BreadCrumbs, Crumb } from './breadcrumbs';
 
 interface CategoryHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   category: Partial<CategoryMetadata>;
@@ -17,6 +18,11 @@ const CategoryHeader = React.forwardRef<HTMLDivElement, CategoryHeaderProps>(
         {...otherProps}
       >
         <div className="container">
+          <BreadCrumbs className="mb-8">
+            <Crumb href="/">Home</Crumb>
+            <Crumb href={'#'}>{category.label}</Crumb>
+          </BreadCrumbs>
+
           <p className="mb-3 text-4xl font-semibold text-foreground">
             {category.label}
           </p>
