@@ -1,3 +1,5 @@
+import { Footer } from '@/components/footer';
+import { Navbar } from '@/components/navbar';
 import { TWIndicator } from '@/components/tw-indicator';
 import { Toaster } from '@/components/ui/sonner';
 import '@/styles/globals.css';
@@ -19,10 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="">
       <body className={inter.className}>
-        {/* <Navbar /> */}
+        <Navbar />
         {children}
         <Toaster position="bottom-right" closeButton />
         <TWIndicator />
+        <Footer />
       </body>
     </html>
   );
